@@ -5,12 +5,16 @@ namespace App\Filament\Resources\Activities\Resources\Components;
 use App\Filament\Resources\Activities\ActivityResource;
 use App\Filament\Resources\Activities\Resources\Components\Pages\CreateComponent;
 use App\Filament\Resources\Activities\Resources\Components\Pages\EditComponent;
+use App\Filament\Resources\Activities\Resources\Components\Pages\ViewComponent;
+use App\Filament\Resources\Activities\Resources\Components\RelationManagers\ComponentAuditsRelationManager;
 use App\Filament\Resources\Activities\Resources\Components\Resources\Reports\RelationManagers\ReportsRelationManager;
 use App\Filament\Resources\Activities\Resources\Components\Schemas\ComponentForm;
 use App\Filament\Resources\Activities\Resources\Components\Tables\ComponentsTable;
 use App\Models\Component;
 use BackedEnum;
+use Filament\Actions\CreateAction;
 use Filament\Resources\ParentResourceRegistration;
+use Filament\Resources\RelationManagers\RelationGroup;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
@@ -50,7 +54,8 @@ class ComponentResource extends Resource
             'component.delete' => __('Allows deleting components'),
             'component.delete.force' => __('Allows deleteing components (Force)'),
             'component.restore' => __('Allows restore components'),
-            'component.audit' => __('Allows view Audit components')
+            'component.audit.index' => __('Allows view audit components'),
+            'component.audit.restore' => __('Allows resotre audit components')
         ];
     }
 
@@ -73,7 +78,12 @@ class ComponentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            'reports' => ReportsRelationManager::class
+            RelationGroup::make(__('Montly Reports'), [
+                'components' => ReportsRelationManager::make(),
+            ]),
+            RelationGroup::make(__('Changelog'), [
+                'Audit' => ComponentAuditsRelationManager::make(),
+            ])
         ];
     }
 
@@ -82,6 +92,8 @@ class ComponentResource extends Resource
         return [
             'create' => CreateComponent::route('/create'),
             'edit' => EditComponent::route('/{record}/edit'),
+            'view' => ViewComponent::route('/{record}/view'),
+
         ];
     }
 

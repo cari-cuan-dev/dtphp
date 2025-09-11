@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Activities;
 use App\Filament\Resources\Activities\Pages\CreateActivity;
 use App\Filament\Resources\Activities\Pages\EditActivity;
 use App\Filament\Resources\Activities\Pages\ListActivities;
+use App\Filament\Resources\Activities\Pages\ViewActivity;
 use App\Filament\Resources\Activities\Resources\Components\RelationManagers\ComponentsRelationManager;
 use App\Filament\Resources\Activities\Schemas\ActivityForm;
 use App\Filament\Resources\Activities\Tables\ActivitiesTable;
@@ -18,7 +19,8 @@ use Filament\Tables\Table;
 use Hexters\HexaLite\HasHexaLite;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
+// use Tapp\FilamentAuditing\RelationManagers\ActivityAuditsRelationManager;
+use App\Filament\Resources\Activities\RelationManagers\ActivityAuditsRelationManager;
 
 class ActivityResource extends Resource
 {
@@ -43,13 +45,15 @@ class ActivityResource extends Resource
     public function defineGates(): array
     {
         return [
-            'activity.index' => __('Allows viewing the activity list'),
+            'activity.index' => __('Allows viewing the activity list according to role'),
+            'activity.index.all' => __('Allows viewing all the activity list'),
             'activity.create' => __('Allows creating a new activity'),
             'activity.update' => __('Allows updating activities'),
             'activity.delete' => __('Allows deleting activities'),
             'activity.delete.force' => __('Allows deleteing activities (Force)'),
             'activity.restore' => __('Allows restore activities'),
-            'activity.audit' => __('Allows view Audit activities')
+            'activity.audit.index' => __('Allows view audit activities'),
+            'activity.audit.restore' => __('Allows resotre audit activities')
         ];
     }
 
@@ -70,27 +74,14 @@ class ActivityResource extends Resource
 
     public static function getRelations(): array
     {
-        // $data = [RelationGroup::make(__('Components'), [
-        //     'components' => ComponentsRelationManager::make(),
-        // ])];
-
-        // if (hexa()->can(['activity.audit']))
-        //     array_push(
-        //         $data,
-        //         RelationGroup::make(__('Changelog'), [
-        //             'Audit2' => AuditsRelationManager::make(),
-        //         ])
-        //     );
-
-        $data = [
+        return [
             RelationGroup::make(__('Components'), [
                 'components' => ComponentsRelationManager::make(),
             ]),
             RelationGroup::make(__('Changelog'), [
-                'Audit' => AuditsRelationManager::make(),
+                'Audit' => ActivityAuditsRelationManager::make(['view' => true]),
             ])
         ];
-        return $data;
     }
 
     public static function getPages(): array
@@ -99,6 +90,7 @@ class ActivityResource extends Resource
             'index' => ListActivities::route('/'),
             'create' => CreateActivity::route('/create'),
             'edit' => EditActivity::route('/{record}/edit'),
+            'view' => ViewActivity::route('/{record}/view'),
         ];
     }
 

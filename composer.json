@@ -7,10 +7,12 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "ariaieboy/filament-currency": "^2.0",
         "bezhansalleh/filament-language-switch": "^4.0",
         "filament/filament": "^4.0",
         "hexters/hexa-lite": "^3.0",
         "laravel/framework": "^12.0",
+        "laravel/octane": "^2.12",
         "laravel/tinker": "^2.10.1",
         "stechstudio/filament-impersonate": "^4.0",
         "tapp/filament-auditing": "^4.0"

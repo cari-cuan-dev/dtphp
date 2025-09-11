@@ -26,10 +26,12 @@ class ActivityForm
                     ->numeric(),
                 Grid::make()
                     ->columns([
-                        'xs' => 12,
+                        'default' => 12,
                         'sm' => 12,
                         'md' => 12,
+                        'lg' => 12,
                         'xl' => 12,
+                        '2xl' => 12,
                     ])
                     ->columnSpanFull()
                     ->schema([
@@ -37,38 +39,46 @@ class ActivityForm
                             ->label(__('Code'))
                             ->required()
                             ->columnSpan([
-                                'xs' => 12,
+                                'default' => 6,
                                 'sm' => 6,
-                                'md' => 4,
-                                'xl' => 4,
+                                'md' => 6,
+                                'lg' => 6,
+                                'xl' => 3,
+                                '2xl' => 3,
                             ]),
                         TextInput::make('label')
                             ->label(__('Label'))
                             ->required()
                             ->columnSpan([
-                                'xs' => 12,
+                                'default' => 6,
                                 'sm' => 6,
-                                'md' => 4,
+                                'md' => 6,
+                                'lg' => 6,
                                 'xl' => 4,
+                                '2xl' => 4,
                             ]),
                         TextInput::make('volume')
                             ->label(__('Volume'))
                             ->required()
                             ->numeric()
                             ->columnSpan([
-                                'xs' => 12,
-                                'sm' => 8,
-                                'md' => 3,
-                                'xl' => 3
+                                'default' => 6,
+                                'sm' => 6,
+                                'md' => 6,
+                                'lg' => 6,
+                                'xl' => 3,
+                                '2xl' => 3
                             ]),
                         TextInput::make('unit')
                             ->label(__('Unit'))
                             ->required()
                             ->columnSpan([
-                                'xs' => 12,
-                                'sm' => 4,
-                                'md' => 1,
-                                'xl' => 1
+                                'default' => 6,
+                                'sm' => 6,
+                                'md' => 6,
+                                'lg' => 6,
+                                'xl' => 2,
+                                '2xl' => 2
                             ]),
                     ])
             ]);

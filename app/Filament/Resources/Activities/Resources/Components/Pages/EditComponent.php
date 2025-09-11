@@ -15,9 +15,12 @@ class EditComponent extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
-            ForceDeleteAction::make(),
-            RestoreAction::make(),
+            DeleteAction::make()
+                ->visible(fn() => hexa()->can('component.delete')),
+            ForceDeleteAction::make()
+                ->visible(fn() => hexa()->can('component.delete.force')),
+            RestoreAction::make()
+                ->visible(fn() => hexa()->can('component.restore')),
         ];
     }
 }

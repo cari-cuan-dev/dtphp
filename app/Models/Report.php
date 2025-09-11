@@ -53,6 +53,7 @@ class Report extends Model implements Auditable
 
     ];
 
+    // relation
     public function component(): BelongsTo
     {
         return $this->belongsTo(Component::class);
@@ -65,8 +66,6 @@ class Report extends Model implements Auditable
     {
         return $this->belongsTo(User::class, 'verified_by');
     }
-
-
     public function created_user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
@@ -78,5 +77,14 @@ class Report extends Model implements Auditable
     public function deleted_user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by');
+    }
+
+    // feature
+    public function budget_realization()
+    {
+        return $this->realization_capital
+            + $this->realization_good
+            + $this->realization_employee
+            + $this->realization_social;
     }
 }

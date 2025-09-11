@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Activity extends Model implements Auditable
@@ -49,5 +50,13 @@ class Activity extends Model implements Auditable
     public function deleted_user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'deleted_by');
+    }
+
+    // function
+
+    public function getAllocation()
+    {
+        return $this->components()
+            ->sum('allocation_total');
     }
 }

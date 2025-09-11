@@ -5,19 +5,26 @@ namespace App\Filament\Resources\Activities\Resources\Components\Resources\Repor
 use App\Filament\Resources\Activities\Resources\Components\ComponentResource;
 use App\Filament\Resources\Activities\Resources\Components\Resources\Reports\Pages\CreateReport;
 use App\Filament\Resources\Activities\Resources\Components\Resources\Reports\Pages\EditReport;
+use App\Filament\Resources\Activities\Resources\Components\Resources\Reports\Pages\ViewReport;
+use App\Filament\Resources\Activities\Resources\Components\Resources\Reports\RelationManagers\ReportAuditsRelationManager;
+use App\Filament\Resources\Activities\Resources\Components\Resources\Reports\RelationManagers\ReportsRelationManager;
 use App\Filament\Resources\Activities\Resources\Components\Resources\Reports\Schemas\ReportForm;
 use App\Filament\Resources\Activities\Resources\Components\Resources\Reports\Tables\ReportsTable;
 use App\Models\Report;
 use BackedEnum;
+use Filament\Resources\RelationManagers\RelationGroup;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Hexters\HexaLite\HasHexaLite;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ReportResource extends Resource
 {
+    use HasHexaLite;
+
     protected static ?string $model = Report::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -25,6 +32,30 @@ class ReportResource extends Resource
     protected static ?string $parentResource = ComponentResource::class;
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    public function roleName()
+    {
+        return __('Reports');
+    }
+
+    public static function canAccess(): bool
+    {
+        return hexa()->can('report.index');
+    }
+
+    public function defineGates(): array
+    {
+        return [
+            'report.index' => __('Allows viewing the report list'),
+            'report.create' => __('Allows creating a new report'),
+            'report.update' => __('Allows updating reports'),
+            'report.delete' => __('Allows deleting reports'),
+            'report.delete.force' => __('Allows deleteing reports (Force)'),
+            'report.restore' => __('Allows restore reports'),
+            'report.audit.index' => __('Allows view audit reports'),
+            'report.audit.restore' => __('Allows resotre audit reports')
+        ];
+    }
 
     public static function form(Schema $schema): Schema
     {
@@ -39,7 +70,9 @@ class ReportResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationGroup::make(__('Changelog'), [
+                'Audit' => ReportAuditsRelationManager::make(),
+            ])
         ];
     }
 
@@ -48,6 +81,7 @@ class ReportResource extends Resource
         return [
             'create' => CreateReport::route('/create'),
             'edit' => EditReport::route('/{record}/edit'),
+            'view' => ViewReport::route('/{record}/view'),
         ];
     }
 

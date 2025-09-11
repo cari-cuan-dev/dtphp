@@ -15,9 +15,12 @@ class EditReport extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
-            ForceDeleteAction::make(),
-            RestoreAction::make(),
+            DeleteAction::make()
+                ->visible(fn() => hexa()->can('report.delete')),
+            ForceDeleteAction::make()
+                ->visible(fn() => hexa()->can('report.delete.force')),
+            RestoreAction::make()
+                ->visible(fn() => hexa()->can('report.restore')),
         ];
     }
 }
