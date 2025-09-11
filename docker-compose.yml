@@ -1,10 +1,15 @@
-# compose.yaml
 services:
-  frankenphp:
-    build:
-      context: .
-    entrypoint: php artisan octane:frankenphp --workers=1 --max-requests=1
-    ports:
-      - "8000:8000"
-    volumes:
-      - .:/app
+    frankenphp:
+        build:
+            context: .
+        entrypoint: php artisan octane:frankenphp --workers=1 --max-requests=1
+        ports:
+            - "8000:8000"
+        volumes:
+            - .:/app
+    npm_builder:
+        image: node:24-alpine3.22
+        volumes:
+            - .:/app
+        working_dir: /app
+        entrypoint: ["/bin/sh", "-c", "npm install && npm run build"]
