@@ -31,5 +31,11 @@
     "Implementation": "Pelaksanaan",
     "Utilization": "Kemanfaatan",
     "Verfication": "Verifikasi",
-    "Dashboard Main": "Dashboard Utama"
+    "Dashboard Main": "Dashboard Utama",
+    "Back": "Kembali",
+    "Status Utilization": "Status Kemanfaatan",
+    "Status Utilization:false": "Belum Dimanfaatkan",
+    "Status Utilization:true": "Sudah Dimanfaatkan",
+    "Issue Solve:true": "Terselesaikan",
+    "Issue Solve:false": "Belum Terselesaikan"
 }

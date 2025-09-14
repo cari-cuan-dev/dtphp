@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Filament\Panel\Concerns\HasNotifications;
 use Hexters\HexaLite\HexaLiteRolePermission;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,6 +17,7 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
     use SoftDeletes;
+    use HasNotifications;
     // use HexaLiteRolePermission;
 
     /**

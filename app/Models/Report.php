@@ -21,7 +21,7 @@ class Report extends Model implements Auditable
         'physical_volume',
         'physical_unit',
         'physical_real',
-        'physical_unit',
+        'physical_real_unit',
         'physical_category',
         'physical_status',
 

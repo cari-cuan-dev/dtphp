@@ -68,7 +68,8 @@ docker compose run --rm composer install --ignore-platform-reqs
 docker compose run --rm composer update --ignore-platform-reqs
 docker compose run --rm composer dump-autoload
 
-docker compose run --rm npm_builder install
-docker compose run --rm npm_builder update
+docker compose run --rm npm_builder npm install
+docker compose run --rm npm_builder npm update
+docker compose run --rm npm_builder npm run build
 
 docker compose up -d frankenphp

@@ -1,4 +1,8 @@
 {
     "Role Name": "Role",
-    "Activity Menu": "Report"
+    "Activity Menu": "Report",
+    "Status Utilization:false": "Not Yet Utilized",
+    "Status Utilization:true": "Already Utilized",
+    "Issue Solve:true": "Solved",
+    "Issue Solve:false": "Not Yet Solved"
 }

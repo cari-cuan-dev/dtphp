@@ -4,6 +4,7 @@ namespace App\Filament\Widgets\DashboardMain;
 
 use Filament\Support\Colors\Color;
 use Filament\Widgets\ChartWidget;
+use Illuminate\Support\Number;
 
 class MonthlyFinancialWidget extends ChartWidget
 {

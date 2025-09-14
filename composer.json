@@ -14,6 +14,8 @@
         "laravel/framework": "^12.0",
         "laravel/octane": "^2.12",
         "laravel/tinker": "^2.10.1",
+        "spatie/browsershot": "^5.0",
+        "spatie/laravel-pdf": "^1.8",
         "stechstudio/filament-impersonate": "^4.0",
         "tapp/filament-auditing": "^4.0"
     },

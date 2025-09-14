@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Activities\Pages;
 use App\Filament\Resources\Activities\ActivityResource;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
+use Filament\Actions\ExportAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
 use Filament\Resources\Pages\ViewRecord;

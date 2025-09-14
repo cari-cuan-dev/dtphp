@@ -3,12 +3,15 @@
 namespace App\Filament\Resources\Activities\Tables;
 
 use App\Models\Activity;
+use Filament\Actions\Action;
+use Filament\Actions\BulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
+use Filament\Notifications\Notification;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Columns\ColumnGroup;
@@ -17,8 +20,11 @@ use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Events\NotificationSent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
+use function Spatie\LaravelPdf\Support\pdf;
 
 class ActivitiesTable
 {
@@ -132,7 +138,54 @@ class ActivitiesTable
             ])
             // ->defaultGroup('year')
             // ->groupingSettingsHidden()
+            // ->toolbarActions([
+            //     BulkActionGroup::make([
+            //         DeleteBulkAction::make(),
+            //         BulkAction::make('export')
+            //             ->label(__('Export'))
+            //             ->icon('heroicon-o-document-arrow-down')
+            //             ->action(function ($records) {
+            //                 // dump($records);
+            //                 // Notification::make()
+            //                 //     ->title();
+            //                 // Notification::make()
+            //                 //     ->title('testing')
+            //                 //     ->send()
+            //                 //     ->sendToDatabase(1);
+
+            //                 // $recipient = Auth::user();
+
+            //                 // $recipient->notify(
+            //                 //     Notification::make()
+            //                 //         ->title('Saved successfully')
+            //                 //         ->body("Download pdf yang di request")
+            //                 //         ->success()
+            //                 //         ->toDatabase(),
+            //                 // );
+
+            //                 // return pdf()->view('export.activity', ['records' => $records])
+            //                 //     ->landscape()
+            //                 //     ->margins(
+            //                 //         top: 10,
+            //                 //         right: 10,
+            //                 //         bottom: 10,
+            //                 //         left: 10,
+            //                 //         unit: 'mm'
+            //                 //     )
+            //                 //     ->paperSize(210, 297, 'mm')
+            //                 //     ->download('activities.pdf');
+            //             })
+            //             ->requiresConfirmation()
+            //             ->color('secondary')
+            //             ->visible(fn() => hexa()->can('activity.index')),
+            //     ])
+            // ])
             ->recordActions([
+                Action::make('Export')
+                    ->label(__('Export'))
+                    ->icon('heroicon-o-document-arrow-down')
+                    ->url(fn($record): string => route('activity.export', ['record' => $record->id]))
+                    ->openUrlInNewTab(),
                 EditAction::make()
                     ->visible(fn() => hexa()->can('activity.update')),
                 ViewAction::make()
