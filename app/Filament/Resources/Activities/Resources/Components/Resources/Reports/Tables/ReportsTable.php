@@ -175,7 +175,7 @@ class ReportsTable
                 //     ->visible(fn() => hexa()->can('report.update')),
                 Action::make('Edit')
                     ->url(function ($record) {
-                        return route('filament.admin.resources.activities.components.reports.edit', [
+                        return route('filament.emonev.resources.activities.components.reports.edit', [
                             $record->component->activity->id,
                             $record->component->id,
                             $record->id

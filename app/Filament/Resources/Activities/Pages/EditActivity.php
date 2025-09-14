@@ -31,7 +31,7 @@ class EditActivity extends EditRecord
 
     protected function getCancelFormAction(): Action
     {
-        $url = route('filament.admin.resources.activities.index');
+        $url = route('filament.emonev.resources.activities.index');
 
         return Action::make('cancel')
             ->label(__('Back'))

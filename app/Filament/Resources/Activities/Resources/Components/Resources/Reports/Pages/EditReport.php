@@ -29,7 +29,7 @@ class EditReport extends EditRecord
 
     protected function getCancelFormAction(): Action
     {
-        $url = route('filament.admin.resources.activities.components.edit', [
+        $url = route('filament.emonev.resources.activities.components.edit', [
             'record' => $this->parentRecord->id,
             'activity' => $this->parentRecord->activity->id,
         ]);

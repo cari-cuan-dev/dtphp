@@ -22,7 +22,7 @@ class ReportsRelationManager extends RelationManager
         return $table
             ->headerActions([
                 Action::make('Create')
-                    ->url(route('filament.admin.resources.activities.components.reports.create', [
+                    ->url(route('filament.emonev.resources.activities.components.reports.create', [
                         $component->activity->id,
                         $component->id
                     ]))

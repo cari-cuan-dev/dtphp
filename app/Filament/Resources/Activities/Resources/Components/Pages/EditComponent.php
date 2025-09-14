@@ -29,7 +29,7 @@ class EditComponent extends EditRecord
 
     protected function getCancelFormAction(): Action
     {
-        $url = route('filament.admin.resources.activities.edit', [
+        $url = route('filament.emonev.resources.activities.edit', [
             'record' => $this->parentRecord->id
         ]);
 
