@@ -7,7 +7,7 @@
         <ul>
             @foreach($values ?? [] as $key => $value)
                 <li>
-                    <span class="inline-block rounded-md whitespace-normal text-gray-700 dark:text-gray-200">
+                    <span class="inline-block rounded-md whitespace-normal text-gray-200 dark:text-gray-700">
                        {{ Str::title($key) }}:
                     </span>
                     <span class="font-semibold">

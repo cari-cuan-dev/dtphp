@@ -11,3 +11,5 @@
 }
 
 @source '../../../../resources/views/filament';
+@source '/vendor/awcodes/light-switch/resources/**/*.blade.php';
+@source '/resources/views/**/*.blade.php';

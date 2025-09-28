@@ -7,7 +7,9 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "agencetwogether/hookshelper": "^0.0.3",
         "ariaieboy/filament-currency": "^2.0",
+        "awcodes/light-switch": "^2.0",
         "bezhansalleh/filament-language-switch": "^4.0",
         "filament/filament": "^4.0",
         "hexters/hexa-lite": "^3.0",
@@ -17,6 +19,7 @@
         "spatie/browsershot": "^5.0",
         "spatie/laravel-pdf": "^1.8",
         "stechstudio/filament-impersonate": "^4.0",
+        "swisnl/filament-backgrounds": "^2.0",
         "tapp/filament-auditing": "^4.0"
     },
     "require-dev": {

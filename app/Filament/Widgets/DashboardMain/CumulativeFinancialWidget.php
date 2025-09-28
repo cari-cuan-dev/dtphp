@@ -2,58 +2,81 @@
 
 namespace App\Filament\Widgets\DashboardMain;
 
+use App\Models\Activity;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\ChartWidget;
+use Filament\Widgets\Concerns\InteractsWithPageFilters;
 
 class CumulativeFinancialWidget extends ChartWidget
 {
-    protected ?string $heading = 'Cumulative Financial';
+    // protected ?string $heading = 'Cumulative Financial';
+    use InteractsWithPageFilters;
+    protected ?string $pollingInterval = null;
+
+    public function getHeading(): string
+    {
+        return __('Cumulative Financial');
+    }
 
     protected function getData(): array
     {
-        $data[0][0] = rand(100000, 1000000);
-        $data[0][1] = $data[0][0] + rand(100000, 1000000);
-        $data[0][2] = $data[0][1] + rand(100000, 1000000);
-        $data[0][3] = $data[0][2] + rand(100000, 1000000);
-        $data[0][4] = $data[0][3] + rand(100000, 1000000);
-        $data[0][5] = $data[0][4] + rand(100000, 1000000);
-        $data[0][6] = $data[0][5] + rand(100000, 1000000);
-        $data[0][7] = $data[0][6] + rand(100000, 1000000);
-        $data[0][8] = $data[0][7] + rand(100000, 1000000);
-        $data[0][9] = $data[0][8] + rand(100000, 1000000);
-        $data[0][10] = $data[0][9] + rand(100000, 1000000);
-        $data[0][11] = $data[0][10] + rand(100000, 1000000);
+        $snapshot = json_decode(request()->get('components')[0]['snapshot']);
+        $year = $snapshot->data->pageFilters[0]?->year ?? null;
+        $roles = $snapshot->data->pageFilters[0]?->role[0] ?? [];
 
-        $data[1][0] = rand(100000, 1000000);
-        $data[1][1] = $data[1][0] + rand(100000, 1000000);
-        $data[1][2] = $data[1][1] + rand(100000, 1000000);
-        $data[1][3] = $data[1][2] + rand(100000, 1000000);
-        $data[1][4] = $data[1][3] + rand(100000, 1000000);
-        $data[1][5] = $data[1][4] + rand(100000, 1000000);
-        $data[1][6] = $data[1][5] + rand(100000, 1000000);
-        $data[1][7] = $data[1][6] + rand(100000, 1000000);
-        $data[1][8] = $data[1][7] + rand(100000, 1000000);
-        $data[1][9] = $data[1][8] + rand(100000, 1000000);
-        $data[1][10] = $data[1][9] + rand(100000, 1000000);
-        $data[1][11] = $data[1][10] + rand(100000, 1000000);
+        $allocations = Activity::join('components', 'components.activity_id', '=', 'activities.id')
+            ->join('roles', 'roles.id', '=', 'activities.role_id')
+            ->selectRaw('
+                    roles.name as label,
+                    sum(components.allocation_total) as data
+                ')
+            ->groupBy('roles.name')
+            ->when($year, fn($query) => $query->where('activities.year', $year))
+            ->when(!empty($roles), fn($query) => $query->whereIn('roles.uuid', $roles))
+            ->get();
+
+        $allocationLabel = $allocations->map(fn($value, $key) => $value->label)[0];
+        $allocationData = $allocations->map(fn($value, $key) => $value->data)[0];
+
+        $realizations = Activity::join('components', 'components.activity_id', '=', 'activities.id')
+            ->join('reports', 'reports.component_id', '=', 'components.id')
+            ->join('roles', 'roles.id', '=', 'activities.role_id')
+            ->selectRaw('
+                    reports."month" as label,
+                    sum(
+                        sum(reports.realization_good
+                        + reports.realization_social
+                        + reports.realization_capital
+                        + reports.realization_employee)
+                        )
+                    OVER (ORDER BY reports."month") as data
+                ')
+            ->groupBy('reports.month')
+            ->orderBy('reports.month')
+            ->when($year, fn($query) => $query->where('activities.year', $year))
+            ->when(!empty($roles), fn($query) => $query->whereIn('roles.uuid', $roles))
+            ->get();
+
+        $realizationLabel = $realizations->map(fn($value, $key) => $value->label);
+        $realizationData = $realizations->map(fn($value, $key) => $value->data);
 
         return [
             'datasets' => [
                 [
                     'label' => 'Alokasi Kumulatif',
                     'data' => [
-                        $data[0][0],
-                        $data[0][1],
-                        $data[0][2],
-                        $data[0][3],
-                        $data[0][4],
-                        $data[0][5],
-                        $data[0][6],
-                        $data[0][7],
-                        $data[0][8],
-                        $data[0][9],
-                        $data[0][10],
-                        $data[0][11],
+                        $allocationData,
+                        $allocationData,
+                        $allocationData,
+                        $allocationData,
+                        $allocationData,
+                        $allocationData,
+                        $allocationData,
+                        $allocationData,
+                        $allocationData,
+                        $allocationData,
+                        $allocationData,
+                        $allocationData,
                     ],
                     'backgroundColor' => [
                         Color::Cyan[500],
@@ -64,20 +87,7 @@ class CumulativeFinancialWidget extends ChartWidget
                 ],
                 [
                     'label' => 'Realisasi Kumulatif',
-                    'data' => [
-                        $data[1][0],
-                        $data[1][1],
-                        $data[1][2],
-                        $data[1][3],
-                        $data[1][4],
-                        $data[1][5],
-                        $data[1][6],
-                        $data[1][7],
-                        $data[1][8],
-                        $data[1][9],
-                        $data[1][10],
-                        $data[1][11],
-                    ],
+                    'data' => $realizationData,
                     'backgroundColor' => [
                         Color::Red[500]
                     ],

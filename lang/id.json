@@ -37,5 +37,14 @@
     "Status Utilization:false": "Belum Dimanfaatkan",
     "Status Utilization:true": "Sudah Dimanfaatkan",
     "Issue Solve:true": "Terselesaikan",
-    "Issue Solve:false": "Belum Terselesaikan"
+    "Issue Solve:false": "Belum Terselesaikan",
+    "Monthly Financial": "Laporan Keuangan Bulanan",
+    "Cumulative Financial": "Laporan Keuangan Kumulatif",
+    "Role Distribution": "Distribusi Bidang",
+    "Role & Permissions": "Bidang",
+    "Crated By": "Dibuat Oleh",
+    "Created By": "Dibuat Oleh",
+    "Crated At": "Waktu Dibuat",
+    "Created At": "Waktu Dibuat",
+    "Settings": "Konfigurasi"
 }

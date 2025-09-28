@@ -51,6 +51,7 @@ class ComponentResource extends Resource
             'component.index' => __('Allows viewing the component list'),
             'component.create' => __('Allows creating a new component'),
             'component.update' => __('Allows updating components'),
+            'component.view' => __('Allows view components'),
             'component.delete' => __('Allows deleting components'),
             'component.delete.force' => __('Allows deleteing components (Force)'),
             'component.restore' => __('Allows restore components'),

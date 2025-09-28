@@ -2,7 +2,10 @@
 
 namespace App\Providers\Filament;
 
+use Agencetwogether\HooksHelper\HooksHelperPlugin;
 use App\Filament\Pages\DashboardMain;
+use Awcodes\LightSwitch\Enums\Alignment;
+use Awcodes\LightSwitch\LightSwitchPlugin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -10,6 +13,7 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
+use Filament\Support\Assets\Css;
 use Filament\Support\Colors\Color;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
@@ -20,6 +24,8 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
+use Swis\Filament\Backgrounds\ImageProviders\MyImages;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -30,6 +36,9 @@ class AdminPanelProvider extends PanelProvider
             ->id('emonev')
             ->path('emonev')
             ->login()
+            // ->brandName('')
+            // ->brandLogo('/images/logo/Brand.png')
+            ->favicon('/images/logo/Brand.png')
             ->profile()
             ->databaseNotifications()
             ->databaseNotificationsPolling('30s')
@@ -63,7 +72,29 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->plugins([
                 HexaLite::make(),
+                // HooksHelperPlugin::make(),
+                // LightSwitchPlugin::make()
+                //     ->position(Alignment::TopCenter),
+                FilamentBackgroundsPlugin::make()
+                    ->imageProvider(
+                        MyImages::make()
+                            // ->directory('images/swisnl/filament-backgrounds/triangles')
+                            ->directory('images/background-login')
+                    ),
+
             ])
+            ->viteTheme([
+                'public/css/filament/filament/app.css',
+                'resources/css/light-switch.css'
+            ])
+            ->renderHook(
+                'panels::auth.login.form.before',
+                fn() => view('filament.hooks.login-heading')
+            )
+            ->renderHook(
+                'panels::simple-page.end',
+                fn() => view('filament.hooks.login-footer')
+            )
             ->spa();
     }
 }

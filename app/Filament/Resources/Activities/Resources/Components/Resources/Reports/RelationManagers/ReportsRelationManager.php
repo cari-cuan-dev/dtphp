@@ -21,12 +21,12 @@ class ReportsRelationManager extends RelationManager
 
         return $table
             ->headerActions([
-                Action::make('Create')
-                    ->url(route('filament.emonev.resources.activities.components.reports.create', [
-                        $component->activity->id,
-                        $component->id
-                    ]))
-                    ->visible(fn() => hexa()->can('report.create')),
+                // Action::make('Create')
+                //     ->url(route('filament.emonev.resources.activities.components.reports.create', [
+                //         $component->activity->id,
+                //         $component->id
+                //     ]))
+                //     ->visible(fn() => hexa()->can('report.create')),
                 CreateAction::make()
                     ->visible(fn() => hexa()->can('report.create')),
                 // ->mutateDataUsing(function (array $data): array {

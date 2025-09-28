@@ -17,9 +17,15 @@ class DashboardMain extends BaseDashboard
 {
     use HasFiltersForm;
 
+    public function persistsFiltersInSession(): bool
+    {
+        return false;
+    }
+
     protected static string $routePath = '/dashboard-main';
     protected static string | BackedEnum | null $navigationIcon = Heroicon::OutlinedHome;
     protected static ?string $slug = 'dasbor-main';
+
 
     // protected string $view = 'filament.pages.dashboard-main';
 
@@ -43,14 +49,15 @@ class DashboardMain extends BaseDashboard
 
     public function filtersForm(Schema $schema): Schema
     {
-        $roles = Role::whereNot('id', 1)->pluck('name');
-        $activities = Activity::distinct('year')->pluck('year');
+        $roles = Role::whereNot('id', 1)->pluck('name', 'uuid');
+        $activities = Activity::distinct('year')->pluck('year', 'year');
         return $schema
             ->components([
                 Section::make()
                     ->schema([
                         Select::make('role')
                             ->label(__('Role'))
+                            ->live(onBlur: true)
                             ->searchable()
                             ->multiple()
                             ->options($roles)
@@ -64,6 +71,7 @@ class DashboardMain extends BaseDashboard
                             ]),
                         Select::make('year')
                             ->label(__('Year'))
+                            ->live(onBlur: true)
                             ->searchable()
                             ->options($activities)
                             ->columnSpan([

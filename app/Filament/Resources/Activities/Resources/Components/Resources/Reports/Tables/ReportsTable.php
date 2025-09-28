@@ -11,11 +11,13 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
+use Filament\Support\Facades\FilamentView;
 use Filament\Tables\Columns\ColumnGroup;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Js;
 
 class ReportsTable
 {
@@ -79,118 +81,46 @@ class ReportsTable
                 ColumnGroup::make('Status', [
                     IconColumn::make('physical_status')
                         ->boolean()
-                        // ->getStateUsing(fn($record) => $record ? __("Sudah dimanfaatkan") : __("Belum dimanfaatkan"))
                         ->label(__("Utilization"))
                         ->alignEnd(),
                     IconColumn::make('verified')
                         ->boolean()
-                        // ->getStateUsing(fn($record) => $record ? __("Sudah dimanfaatkan") : __("Belum dimanfaatkan"))
                         ->label(__("Verfication"))
                         ->alignEnd(),
                 ]),
-                // TextColumn::make('physical_status')
-                //     ->getStateUsing(fn($record) => $record ? __("Sudah dimanfaatkan") : __("Belum dimanfaatkan"))
-                //     ->label(__("Status Pemanfaatan"))
-                //     ->alignEnd(),
-                IconColumn::make('physical_status')
-                    ->boolean()
-                    // ->getStateUsing(fn($record) => $record ? __("Sudah dimanfaatkan") : __("Belum dimanfaatkan"))
-                    ->label(__("Status Pemanfaatan"))
-                    ->alignEnd(),
-                // TextColumn::make('physical_volume')
-                //     ->numeric()
-                //     ->sortable(),
-                // TextColumn::make('physical_unit')
-                //     ->searchable(),
-                // TextColumn::make('physical_real')
-                //     ->numeric()
-                //     ->sortable(),
-                // TextColumn::make('physical_real_unit')
-                //     ->searchable(),
-                // TextColumn::make('physical_category')
-                //     ->searchable(),
-                // IconColumn::make('physical_status')
-                //     ->boolean(),
-                // TextColumn::make('realization_capital')
-                //     ->numeric()
-                //     ->sortable(),
-                // TextColumn::make('realization_good')
-                //     ->numeric()
-                //     ->sortable(),
-                // TextColumn::make('realization_employee')
-                //     ->numeric()
-                //     ->sortable(),
-                // TextColumn::make('realization_social')
-                //     ->numeric()
-                //     ->sortable(),
-                // TextColumn::make('implementation_progress')
-                //     ->numeric()
-                //     ->sortable(),
-                // TextColumn::make('implementation_category')
-                //     ->numeric()
-                //     ->sortable(),
-                // IconColumn::make('issue_solved')
-                //     ->boolean(),
-                // TextColumn::make('support_document_path')
-                //     ->searchable(),
-                // TextColumn::make('support_photo_path')
-                //     ->searchable(),
-                // TextColumn::make('support_video_path')
-                //     ->searchable(),
-                // IconColumn::make('verified')
-                //     ->boolean(),
-                // TextColumn::make('verified_at')
-                //     ->dateTime()
-                //     ->sortable(),
-                // TextColumn::make('verified_by')
-                //     ->numeric()
-                //     ->sortable(),
-                // TextColumn::make('created_at')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
-                // TextColumn::make('updated_at')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
-                // TextColumn::make('deleted_at')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
-                // TextColumn::make('created_by')
-                //     ->numeric()
-                //     ->sortable(),
-                // TextColumn::make('updated_by')
-                //     ->numeric()
-                //     ->sortable(),
-                // TextColumn::make('deleted_by')
-                //     ->numeric()
-                //     ->sortable(),
             ])
             ->filters([
                 TrashedFilter::make(),
             ])
             ->recordActions([
-                // EditAction::make()
-                //     ->visible(fn() => hexa()->can('report.update')),
-                Action::make('Edit')
-                    ->url(function ($record) {
-                        return route('filament.emonev.resources.activities.components.reports.edit', [
-                            $record->component->activity->id,
-                            $record->component->id,
-                            $record->id
-                        ]);
-                    }),
+                EditAction::make()
+                    ->visible(fn() => hexa()->can('report.update')),
 
+                // Action::make('edit')
+                //     ->label("Edit")
+                //     ->accessSelectedRecords(false)
+                //     ->alpineClickHandler(
+                //         function ($record) {
+                //             $url = route('filament.emonev.resources.activities.components.reports.edit', [
+                //                 $record->component->activity->id,
+                //                 $record->component->id,
+                //                 $record->id
+                //             ]);
+                //             return FilamentView::hasSpaMode($url)
+                //                 ? 'document.referrer ? window.history.back() : Livewire.navigate(' . Js::from($url) . ')'
+                //                 : 'document.referrer ? window.history.back() : (window.location.href = ' . Js::from($url) . ')';
+                //         }
+                //     ),
                 ViewAction::make()
-                    ->visible(fn() => !hexa()->can('report.update')),
+                    ->visible(fn() => !hexa()->can('report.update') && hexa()->can('report.view')),
             ])
+            ->recordAction('edit')
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
-                ]),
+                // BulkActionGroup::make([
+                //     DeleteBulkAction::make(),
+                //     ForceDeleteBulkAction::make(),
+                //     RestoreBulkAction::make(),
+                // ]),
             ]);
     }
 }

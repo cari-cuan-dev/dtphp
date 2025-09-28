@@ -7,7 +7,7 @@
             <ul>
                 @foreach($getState() ?? [] as $key => $value)
                     <li class="mb-2">
-                        <span class="inline-block rounded-md whitespace-normal text-gray-700 dark:text-gray-200">
+                        <span class="inline-block rounded-md whitespace-normal text-gray-700">
                            {{ Str::title($key) }}:
                         </span>
                         <span class="font-semibold">

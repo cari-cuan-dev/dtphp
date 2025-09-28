@@ -33,6 +33,11 @@ class ActivityResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    public static function getModelLabel(): string
+    {
+        return __('Activity');
+    }
+
     public function roleName()
     {
         return __('Activity');
@@ -50,6 +55,7 @@ class ActivityResource extends Resource
             'activity.index.all' => __('Allows viewing all the activity list'),
             'activity.create' => __('Allows creating a new activity'),
             'activity.update' => __('Allows updating activities'),
+            'activity.view' => __('Allows view activity'),
             'activity.delete' => __('Allows deleting activities'),
             'activity.delete.force' => __('Allows deleteing activities (Force)'),
             'activity.restore' => __('Allows restore activities'),

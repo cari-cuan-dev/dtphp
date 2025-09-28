@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Activities\Tables;
 
 use App\Models\Activity;
 use Filament\Actions\Action;
+use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -39,14 +40,15 @@ class ActivitiesTable
                 return $query;
             })
             ->columns([
-                TextColumn::make('year')
-                    ->label(__('Year'))
-                    // ->numeric()
-                    ->sortable()
-                    // ->toggleable(isToggledHiddenByDefault: false)
-                    ->searchable(),
+                // TextColumn::make('year')
+                //     ->label(__('Year'))
+                //     // ->numeric()
+                //     ->sortable()
+                //     // ->toggleable(isToggledHiddenByDefault: false)
+                //     ->searchable(),
                 TextColumn::make('role.name')
-                    ->label(__('Role Name'))
+                    ->label(__('Role Name') . ' | ' . __('Year'))
+                    ->description(fn($record) => $record->year)
                     ->sortable()
                     // ->toggleable(isToggledHiddenByDefault: false)
                     ->searchable(),
@@ -131,10 +133,10 @@ class ActivitiesTable
                 TrashedFilter::make(),
             ])
             ->groups([
-                // Group::make('year')
-                //     ->label(__("Year"))
-                //     ->getKeyFromRecordUsing(fn(): string => 'abc')
-                //     ->getTitleFromRecordUsing(fn(Model $record): string =>  $record->year . ' | ' . __('Role') . ': ' . $record->role->name),
+                Group::make('year')
+                    ->label(__("Year"))
+                    ->getKeyFromRecordUsing(fn(): string => 'abc')
+                    ->getTitleFromRecordUsing(fn(Model $record): string =>  $record->year . ' | ' . __('Role') . ': ' . $record->role->name),
             ])
             // ->defaultGroup('year')
             // ->groupingSettingsHidden()
@@ -181,15 +183,17 @@ class ActivitiesTable
             //     ])
             // ])
             ->recordActions([
-                Action::make('Export')
-                    ->label(__('Export'))
-                    ->icon('heroicon-o-document-arrow-down')
-                    ->url(fn($record): string => route('activity.export', ['record' => $record->id]))
-                    ->openUrlInNewTab(),
-                EditAction::make()
-                    ->visible(fn() => hexa()->can('activity.update')),
-                ViewAction::make()
-                    ->visible(fn() => !hexa()->can('activity.update')),
+                ActionGroup::make([
+                    Action::make('Export')
+                        ->label(__('Export'))
+                        ->icon('heroicon-o-document-arrow-down')
+                        ->url(fn($record): string => route('activity.export', ['record' => $record->id]))
+                        ->openUrlInNewTab(),
+                    EditAction::make()
+                        ->visible(fn() => hexa()->can('activity.update')),
+                    ViewAction::make()
+                        ->visible(fn() => !hexa()->can('activity.update') && hexa()->can('activity.view')),
+                ])
             ]);
     }
 }

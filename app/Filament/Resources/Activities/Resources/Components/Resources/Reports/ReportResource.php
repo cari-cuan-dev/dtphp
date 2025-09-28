@@ -49,6 +49,7 @@ class ReportResource extends Resource
             'report.index' => __('Allows viewing the report list'),
             'report.create' => __('Allows creating a new report'),
             'report.update' => __('Allows updating reports'),
+            'report.view' => __('Allows view reports'),
             'report.delete' => __('Allows deleting reports'),
             'report.delete.force' => __('Allows deleteing reports (Force)'),
             'report.restore' => __('Allows restore reports'),

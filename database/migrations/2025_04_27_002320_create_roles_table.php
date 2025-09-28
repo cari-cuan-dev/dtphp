@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid()->unique();
             $table->string('name');
+            $table->string('description');
             $table->foreignId('team_id')->nullable();
             $table->string('created_by_name')->nullable();
             $table->jsonb('access')->nullable();

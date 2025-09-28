@@ -15,7 +15,7 @@
                         @livewire(App\Filament\Widgets\DashboardMain\MonthlyFinancialWidget::class)
                     </div>
 
-                    <div class="col-span-2 xl:col-span-2">
+                    <div class="col-span-2 xl:col-span-2 mt-3">
                         @livewire(App\Filament\Widgets\DashboardMain\CumulativeFinancialWidget::class)
                     </div>
 

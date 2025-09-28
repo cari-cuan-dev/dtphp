@@ -177,8 +177,10 @@ class ComponentsTable
             ->recordActions([
                 EditAction::make()
                     ->visible(fn() => hexa()->can('component.update')),
+                // ->visible(fn() => hexa()->can('component.update')),
                 ViewAction::make()
-                    ->visible(fn() => !hexa()->can('component.update')),
+                    ->visible(fn() => !hexa()->can('component.update') && hexa()->can('component.view')),
+                // ->visible(fn() => !hexa()->can('component.update')),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
