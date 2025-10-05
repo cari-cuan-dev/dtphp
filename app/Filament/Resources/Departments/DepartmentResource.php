@@ -36,6 +36,11 @@ class DepartmentResource extends Resource
         return __('Role & Permissions');
     }
 
+    public static function getPluralLabel(): ?string
+    {
+        return __('Role & Permissions');
+    }
+
     public static function form(Schema $schema): Schema
     {
         return DepartmentForm::configure($schema);

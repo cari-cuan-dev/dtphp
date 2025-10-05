@@ -8,5 +8,9 @@
     "Access Roles & Permissions": "View data",
     "Create New Role and Permission": "Creating data",
     "Update Existing Role and Permission": "Updating data",
-    "Delete Role and Permission": "Deleting data"
+    "Delete Role and Permission": "Deleting data",
+    "Role & Permissions": "Bidang",
+    "Settings": "Konfigurasi",
+    "Role": "Bidang",
+    "Dashboard Main": "Main Dashboard"
 }
