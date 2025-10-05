@@ -17,7 +17,7 @@ class EditComponent extends EditRecord
 
     protected function authorizeAccess(): void
     {
-        abort_unless(hexa()->can('component.edit'), 403);
+        abort_unless(hexa()->can('component.update'), 403);
     }
 
     protected function getHeaderActions(): array
