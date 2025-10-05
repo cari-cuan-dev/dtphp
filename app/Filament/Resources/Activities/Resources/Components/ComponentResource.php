@@ -35,6 +35,11 @@ class ComponentResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    public static function getModelLabel(): string
+    {
+        return __('Component');
+    }
+
     public function roleName()
     {
         return __('Component');

@@ -33,6 +33,10 @@ class ReportResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    public static function getModelLabel(): string
+    {
+        return __('Reports');
+    }
     public function roleName()
     {
         return __('Reports');
