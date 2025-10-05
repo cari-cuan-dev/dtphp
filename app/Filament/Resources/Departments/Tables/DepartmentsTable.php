@@ -40,7 +40,7 @@ class DepartmentsTable
                 TextColumn::make('created_by_name')
                     ->searchable()
                     ->label(__('Crated By')),
-                    TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->sortable()
                     ->dateTime('d/m/y H:i')
                     ->label(__('Crated At')),
@@ -51,19 +51,17 @@ class DepartmentsTable
             ->recordActions([
                 EditAction::make()
                     ->button()
-                // ->visible(fn() => hexa()->can('department.update'))
-                ,
+                    ->visible(fn() => hexa()->can('role.update')),
                 DeleteAction::make()
                     ->button()
-                // ->visible(fn() => hexa()->can('department.delete'))
-                ,
+                    ->visible(fn() => hexa()->can('role.delete')),
             ])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make()
-                    // ->visible(fn() => hexa()->can('department.delete'))
-                    ,
-                ]),
+                // BulkActionGroup::make([
+                //     DeleteBulkAction::make()
+                //     // ->visible(fn() => hexa()->can('department.delete'))
+                //     ,
+                // ]),
             ]);
     }
 }

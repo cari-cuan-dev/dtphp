@@ -10,6 +10,8 @@ class ActivityController extends Controller
 {
     public function index(Request $request, $record)
     {
+        abort_unless(hexa()->can('activity.export'), 403);
+
         return pdf()->view('export.activity', [
             "activity" => Activity::find($record)
         ])

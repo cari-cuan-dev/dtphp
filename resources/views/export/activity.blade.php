@@ -12,8 +12,7 @@
 <body class="p-2">
 
     @php
-        // $activity = \App\Models\Activity::find(1);
-        App::setLocale(session()->get('locale'));
+        App::setLocale(app()->getLocale());
         Number::useCurrency('IDR');
         Number::useLocale(app::getLocale());
     @endphp

@@ -15,6 +15,11 @@ class EditActivity extends EditRecord
 {
     protected static string $resource = ActivityResource::class;
 
+    protected function authorizeAccess(): void
+    {
+        abort_unless(hexa()->can('activity.update'), 403);
+    }
+
     protected function getHeaderActions(): array
     {
         return [

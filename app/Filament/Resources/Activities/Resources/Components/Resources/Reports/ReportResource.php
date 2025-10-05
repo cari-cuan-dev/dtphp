@@ -46,15 +46,15 @@ class ReportResource extends Resource
     public function defineGates(): array
     {
         return [
-            'report.index' => __('Allows viewing the report list'),
-            'report.create' => __('Allows creating a new report'),
-            'report.update' => __('Allows updating reports'),
-            'report.view' => __('Allows view reports'),
-            'report.delete' => __('Allows deleting reports'),
-            'report.delete.force' => __('Allows deleteing reports (Force)'),
-            'report.restore' => __('Allows restore reports'),
-            'report.audit.index' => __('Allows view audit reports'),
-            'report.audit.restore' => __('Allows resotre audit reports')
+            'report.index' => __('View data'),
+            'report.create' => __('Creating data'),
+            'report.update' => __('Updating data'),
+            'report.delete' => __('Deleting data'),
+            'report.delete.force' => __('Deleting data (Force)'),
+            'report.view' => __('View spesific data'),
+            'report.restore' => __('Restore data deleted'),
+            'report.audit.index' => __('View audit data'),
+            'report.audit.restore' => __('Resotre audit data'),
         ];
     }
 

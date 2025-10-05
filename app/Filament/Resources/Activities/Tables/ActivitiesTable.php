@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Activities\Tables;
 
+use App\Filament\Resources\Activities\ActivityResource;
 use App\Models\Activity;
 use Filament\Actions\Action;
 use Filament\Actions\ActionGroup;
@@ -188,12 +189,24 @@ class ActivitiesTable
                         ->label(__('Export'))
                         ->icon('heroicon-o-document-arrow-down')
                         ->url(fn($record): string => route('activity.export', ['record' => $record->id]))
-                        ->openUrlInNewTab(),
+                        ->openUrlInNewTab()
+                        ->visible(fn() => hexa()->can('activity.export')),
                     EditAction::make()
                         ->visible(fn() => hexa()->can('activity.update')),
                     ViewAction::make()
                         ->visible(fn() => !hexa()->can('activity.update') && hexa()->can('activity.view')),
                 ])
-            ]);
+            ])
+            ->recordAction(fn() => hexa()->can('activity.update') ? 'edit' : null)
+            ->recordUrl(
+                function ($record) {
+                    if (hexa()->can('activity.update'))
+                        return ActivityResource::getUrl('edit', ['record' => $record]);
+                    if (hexa()->can('activity.view'))
+                        return ActivityResource::getUrl('view', ['record' => $record]);
+                    return null;
+                }
+            )
+        ;
     }
 }

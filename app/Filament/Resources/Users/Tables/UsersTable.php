@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\Users\Tables;
 
+use App\Filament\Resources\Users\UserResource;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
@@ -39,13 +41,19 @@ class UsersTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
-                Impersonate::make(),
+                EditAction::make()
+                    ->visible(fn() => hexa()->can('user.update')),
+                DeleteAction::make()
+                    ->visible(fn() => hexa()->can('user.delete')),
+                Impersonate::make()
+                    ->visible(fn() => hexa()->can('user.impersonate')),
             ])
+            ->recordAction(fn() => hexa()->can('user.update') ? 'edit' : null)
+            ->recordUrl(fn($record) => hexa()->can('user.update') ? UserResource::getUrl('edit', ['record' => $record]) : null)
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
+                // BulkActionGroup::make([
+                //     DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 }

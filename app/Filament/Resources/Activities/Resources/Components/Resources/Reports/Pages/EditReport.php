@@ -15,6 +15,11 @@ class EditReport extends EditRecord
 {
     protected static string $resource = ReportResource::class;
 
+    protected function authorizeAccess(): void
+    {
+        abort_unless(hexa()->can('report.update'), 403);
+    }
+
     protected function getHeaderActions(): array
     {
         return [

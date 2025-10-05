@@ -51,16 +51,17 @@ class ActivityResource extends Resource
     public function defineGates(): array
     {
         return [
-            'activity.index' => __('Allows viewing the activity list according to role'),
-            'activity.index.all' => __('Allows viewing all the activity list'),
-            'activity.create' => __('Allows creating a new activity'),
-            'activity.update' => __('Allows updating activities'),
-            'activity.view' => __('Allows view activity'),
-            'activity.delete' => __('Allows deleting activities'),
-            'activity.delete.force' => __('Allows deleteing activities (Force)'),
-            'activity.restore' => __('Allows restore activities'),
-            'activity.audit.index' => __('Allows view audit activities'),
-            'activity.audit.restore' => __('Allows resotre audit activities')
+            'activity.index' => __('View data'),
+            'activity.index.all' => __('View data from all department'),
+            'activity.create' => __('Creating data'),
+            'activity.update' => __('Updating data'),
+            'activity.delete' => __('Deleting data'),
+            'activity.delete.force' => __('Deleting data (Force)'),
+            'activity.view' => __('View spesific data'),
+            'activity.export' => __('Export spesific data'),
+            'activity.restore' => __('Restore data deleted'),
+            'activity.audit.index' => __('View audit data'),
+            'activity.audit.restore' => __('Resotre audit data'),
         ];
     }
 

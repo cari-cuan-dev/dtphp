@@ -15,6 +15,11 @@ class EditComponent extends EditRecord
 {
     protected static string $resource = ComponentResource::class;
 
+    protected function authorizeAccess(): void
+    {
+        abort_unless(hexa()->can('component.edit'), 403);
+    }
+
     protected function getHeaderActions(): array
     {
         return [

@@ -14,9 +14,12 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Hexters\HexaLite\HasHexaLite;
 
 class DepartmentResource extends Resource
 {
+    // use HasHexaLite;
+
     protected static ?string $model = Role::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
@@ -26,6 +29,11 @@ class DepartmentResource extends Resource
     public static function getNavigationGroup(): string
     {
         return __('Settings');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('Role & Permissions');
     }
 
     public static function form(Schema $schema): Schema
@@ -38,10 +46,6 @@ class DepartmentResource extends Resource
         return DepartmentsTable::configure($table);
     }
 
-    public static function getModelLabel(): string
-    {
-        return __('Role & Permissions');
-    }
 
     public static function getRelations(): array
     {
@@ -57,5 +61,10 @@ class DepartmentResource extends Resource
             'create' => CreateDepartment::route('/create'),
             'edit' => EditDepartment::route('/{record}/edit'),
         ];
+    }
+
+    public static function canAccess(): bool
+    {
+        return hexa()->can('role.index');
     }
 }

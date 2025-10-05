@@ -13,6 +13,11 @@ class ViewComponent extends ViewRecord
 {
     protected static string $resource = ComponentResource::class;
 
+    protected function authorizeAccess(): void
+    {
+        abort_unless(hexa()->can('component.view'), 403);
+    }
+
     protected function getHeaderActions(): array
     {
         return [

@@ -4,5 +4,9 @@
     "Status Utilization:false": "Not Yet Utilized",
     "Status Utilization:true": "Already Utilized",
     "Issue Solve:true": "Solved",
-    "Issue Solve:false": "Not Yet Solved"
+    "Issue Solve:false": "Not Yet Solved",
+    "Access Roles & Permissions": "View data",
+    "Create New Role and Permission": "Creating data",
+    "Update Existing Role and Permission": "Updating data",
+    "Delete Role and Permission": "Deleting data"
 }

@@ -27,3 +27,7 @@ Thumbs.db
 **/caddy
 frankenphp
 frankenphp-worker.php
+
+/chrome
+/node
+/npm

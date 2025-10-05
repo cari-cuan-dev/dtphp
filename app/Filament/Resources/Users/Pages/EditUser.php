@@ -10,10 +10,15 @@ class EditUser extends EditRecord
 {
     protected static string $resource = UserResource::class;
 
+    protected function authorizeAccess(): void
+    {
+        abort_unless(hexa()->can('user.update'), 403);
+    }
     protected function getHeaderActions(): array
     {
         return [
-            DeleteAction::make(),
+            DeleteAction::make()
+                ->visible(fn() => hexa()->can('user.delete')),
         ];
     }
 }

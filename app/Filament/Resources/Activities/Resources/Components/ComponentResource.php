@@ -48,15 +48,15 @@ class ComponentResource extends Resource
     public function defineGates(): array
     {
         return [
-            'component.index' => __('Allows viewing the component list'),
-            'component.create' => __('Allows creating a new component'),
-            'component.update' => __('Allows updating components'),
-            'component.view' => __('Allows view components'),
-            'component.delete' => __('Allows deleting components'),
-            'component.delete.force' => __('Allows deleteing components (Force)'),
-            'component.restore' => __('Allows restore components'),
-            'component.audit.index' => __('Allows view audit components'),
-            'component.audit.restore' => __('Allows resotre audit components')
+            'component.index' => __('View data'),
+            'component.create' => __('Creating data'),
+            'component.update' => __('Updating data'),
+            'component.delete' => __('Deleting data'),
+            'component.delete.force' => __('Deleting data (Force)'),
+            'component.view' => __('View spesific data'),
+            'component.restore' => __('Restore data deleted'),
+            'component.audit.index' => __('View audit data'),
+            'component.audit.restore' => __('Resotre audit data'),
         ];
     }
 

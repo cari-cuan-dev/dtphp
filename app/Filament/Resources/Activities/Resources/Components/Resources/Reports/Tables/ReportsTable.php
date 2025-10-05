@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Activities\Resources\Components\Resources\Reports\Tables;
 
 use App\Filament\Resources\Activities\Resources\Components\Resources\Reports\Classes\MutateData;
+use App\Filament\Resources\Activities\Resources\Components\Resources\Reports\ReportResource;
 use Carbon\Carbon;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
@@ -114,7 +115,25 @@ class ReportsTable
                 ViewAction::make()
                     ->visible(fn() => !hexa()->can('report.update') && hexa()->can('report.view')),
             ])
-            ->recordAction('edit')
+            ->recordAction(fn() => hexa()->can('report.update') ? 'edit' : null)
+            ->recordUrl(
+                function ($record) {
+                    if (hexa()->can('report.update'))
+                        return ReportResource::getUrl('edit', [
+                            'record' => $record,
+                            'component' => $record->component,
+                            'activity' => $record->component->activity,
+                        ]);
+                    if (hexa()->can('report.view'))
+                        return ReportResource::getUrl('view', [
+                            'record' => $record,
+                            'component' => $record->component,
+                            'activity' => $record->component->activity,
+
+                        ]);
+                    return null;
+                }
+            )
             ->toolbarActions([
                 // BulkActionGroup::make([
                 //     DeleteBulkAction::make(),

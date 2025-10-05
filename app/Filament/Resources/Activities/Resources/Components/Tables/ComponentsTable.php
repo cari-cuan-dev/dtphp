@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Activities\Resources\Components\Tables;
 
+use App\Filament\Resources\Activities\Resources\Components\ComponentResource;
 use Carbon\Carbon;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -182,12 +183,28 @@ class ComponentsTable
                     ->visible(fn() => !hexa()->can('component.update') && hexa()->can('component.view')),
                 // ->visible(fn() => !hexa()->can('component.update')),
             ])
+            ->recordAction(fn() => hexa()->can('component.update') ? 'edit' : null)
+            ->recordUrl(
+                function ($record) {
+                    if (hexa()->can('component.update'))
+                        return ComponentResource::getUrl('edit', [
+                            'record' => $record,
+                            'activity' => $record->activity
+                        ]);
+                    if (hexa()->can('component.view'))
+                        return ComponentResource::getUrl('view', [
+                            'record' => $record,
+                            'activity' => $record->activity
+                        ]);
+                    return null;
+                }
+            )
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
-                ]),
+                // BulkActionGroup::make([
+                //     DeleteBulkAction::make(),
+                //     ForceDeleteBulkAction::make(),
+                //     RestoreBulkAction::make(),
+                // ]),
             ]);
     }
 }

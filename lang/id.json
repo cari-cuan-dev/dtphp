@@ -46,5 +46,25 @@
     "Created By": "Dibuat Oleh",
     "Crated At": "Waktu Dibuat",
     "Created At": "Waktu Dibuat",
-    "Settings": "Konfigurasi"
+    "Settings": "Konfigurasi",
+    "View data": "Melihat data",
+    "Creating data": "Membuat data",
+    "Updating data": "Memperbarui data",
+    "Deleting data": "Menghapus data",
+
+    "View data from all department": "Melihat data dari semua bidang",
+    "View spesific data": "Melihat spesifik data tertentu",
+    "Deleting data (Force)": "Menghapus data (Bukan softdelete)",
+    "Restore data deleted": "Mengembalikan data terhapus",
+    "View audit data": "Melihat data audit",
+    "Resotre audit data": "Mengembalikan data dari audit",
+
+    "Access Roles & Permissions": "Melihat data",
+    "Create New Role and Permission": "Membuat data",
+    "Update Existing Role and Permission": "Memperbarui data",
+    "Delete Role and Permission": "Menghapus data",
+
+    "Impersonate user": "Impersonate/berperan sebagai user lain",
+    "Forbidden": "Anda tidak memiliki akses",
+    "Export spesific data": "Export spesifik data tertentu"
 }

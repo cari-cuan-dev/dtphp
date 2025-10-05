@@ -14,6 +14,11 @@ class ViewActivity extends ViewRecord
 {
     protected static string $resource = ActivityResource::class;
 
+    protected function authorizeAccess(): void
+    {
+        abort_unless(hexa()->can('activity.view'), 403);
+    }
+
     protected function getHeaderActions(): array
     {
         return [
