@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Departments\Tables;
 
+use App\Filament\Resources\Departments\DepartmentResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -56,6 +57,15 @@ class DepartmentsTable
                     ->button()
                     ->visible(fn() => hexa()->can('role.delete')),
             ])
+
+            ->recordAction(fn() => hexa()->can('role.update') ? 'edit' : null)
+            ->recordUrl(
+                function ($record) {
+                    if (hexa()->can('role.update'))
+                        return DepartmentResource::getUrl('edit', ['record' => $record]);
+                    return null;
+                }
+            )
             ->toolbarActions([
                 // BulkActionGroup::make([
                 //     DeleteBulkAction::make()

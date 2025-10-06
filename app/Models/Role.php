@@ -7,10 +7,12 @@ use App\Models\Team;
 use Filament\Facades\Filament;
 use Hexters\HexaLite\Helpers\UuidGenerator;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class Role extends Model
+class Role extends Model implements Auditable
 {
     use UuidGenerator;
+    use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'name',

@@ -10,11 +10,13 @@ use App\Filament\Resources\Departments\Tables\DepartmentsTable;
 use App\Models\Department;
 use App\Models\Role;
 use BackedEnum;
+use Filament\Resources\RelationManagers\RelationGroup;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Hexters\HexaLite\HasHexaLite;
+use Tapp\FilamentAuditing\RelationManagers\AuditsRelationManager;
 
 class DepartmentResource extends Resource
 {
@@ -55,7 +57,10 @@ class DepartmentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationGroup::make(__('Changelog'), [
+                'Audit' => AuditsRelationManager::make(['view' => true]),
+            ])
+
         ];
     }
 

@@ -10,6 +10,11 @@ class EditDepartment extends EditRecord
 {
     protected static string $resource = DepartmentResource::class;
 
+    protected function authorizeAccess(): void
+    {
+        abort_unless(hexa()->can('role.update'), 403);
+    }
+
     protected function getHeaderActions(): array
     {
         return [

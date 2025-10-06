@@ -10,6 +10,11 @@ class CreateDepartment extends CreateRecord
 {
     protected static string $resource = DepartmentResource::class;
 
+    protected function authorizeAccess(): void
+    {
+        abort_unless(hexa()->can('role.create'), 403);
+    }
+
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         $data['access'] = $data['gates'] ?? [];
