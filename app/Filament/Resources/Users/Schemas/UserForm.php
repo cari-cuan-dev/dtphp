@@ -17,6 +17,9 @@ class UserForm
                 TextInput::make('name')
                     ->label(__('Name'))
                     ->required(),
+                TextInput::make('username')
+                    ->label(__('Username'))
+                    ->required(),
                 TextInput::make('email')
                     ->label(__('Email Address'))
                     ->email()

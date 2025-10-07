@@ -66,5 +66,7 @@
 
     "Impersonate user": "Impersonate/berperan sebagai user lain",
     "Forbidden": "Anda tidak memiliki akses",
-    "Export spesific data": "Export spesifik data tertentu"
+    "Export spesific data": "Export spesifik data tertentu",
+    "Username": "Username",
+    "Verify data": "Verifikasi data"
 }

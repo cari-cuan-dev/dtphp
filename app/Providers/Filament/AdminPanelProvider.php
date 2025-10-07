@@ -4,8 +4,11 @@ namespace App\Providers\Filament;
 
 use Agencetwogether\HooksHelper\HooksHelperPlugin;
 use App\Filament\Pages\DashboardMain;
+use App\Filament\Pages\Login as PagesLogin;
 use Awcodes\LightSwitch\Enums\Alignment;
 use Awcodes\LightSwitch\LightSwitchPlugin;
+use Filament\Auth\Pages\Login;
+use Filament\Forms\Components\TextInput;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -23,6 +26,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Swis\Filament\Backgrounds\FilamentBackgroundsPlugin;
 use Swis\Filament\Backgrounds\ImageProviders\MyImages;
@@ -35,9 +39,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('emonev')
             ->path('emonev')
-            ->login()
-            // ->brandName('')
-            // ->brandLogo('/images/logo/Brand.png')
+            ->login(PagesLogin::class)
             ->favicon('/images/logo/Brand.png')
             ->profile()
             ->databaseNotifications()

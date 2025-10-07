@@ -29,6 +29,7 @@ class User extends Authenticatable implements Auditable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
     ];
@@ -65,6 +66,11 @@ class User extends Authenticatable implements Auditable
             'role_id'
         )->where('guard', hexa()->guard());
     }
+
+    // public function getAuthIdentifierName()
+    // {
+        // return 'username';
+    // }
 
     public function created_user(): BelongsTo
     {
