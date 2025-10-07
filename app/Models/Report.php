@@ -19,9 +19,7 @@ class Report extends Model implements Auditable
 
         // realization physical
         'physical_volume',
-        'physical_unit',
         'physical_real',
-        'physical_real_unit',
         'physical_category',
         'physical_status',
 

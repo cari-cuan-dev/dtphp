@@ -41,7 +41,8 @@ class ReportForm
                     ->columnSpanFull()
                     ->label(__("Month"))
                     ->options(collect(array_slice(range(0, 12), 1, 12, true))->map(fn($item) => Carbon::createFromFormat('m', $item)->translatedFormat('F')))
-                    ->required(),
+                    ->required()
+                    ->disabledOn('edit'),
                 Section::make(__("Fisik"))
                     ->columnSpanFull()
                     ->columns([
@@ -56,9 +57,9 @@ class ReportForm
                             ->columnSpan([
                                 "default" => 12,
                                 "sm" => 12,
-                                "md" => 6,
-                                "lg" => 6,
-                                "xl" => 6,
+                                "md" => 4,
+                                "lg" => 4,
+                                "xl" => 4,
                             ])
                             ->columns([
                                 "default" => 12,
@@ -71,30 +72,20 @@ class ReportForm
                                 TextInput::make('physical_volume')
                                     ->label(__('Volume'))
                                     ->belowLabel(__("Realisasi Fisik"))
-                                    // ->required()
+                                    ->required()
                                     ->currencyMask(thousandSeparator: '.', decimalSeparator: ',', precision: 0)
                                     ->default(0)
                                     ->afterStateHydrated(fn($state, TextInput $component) => $component->state($state == 0 ? null : $state))
                                     ->placeholder(0)
                                     ->columnSpan([
-                                        "default" => 8,
-                                        "sm" => 8,
-                                        "md" => 8,
-                                        "lg" => 8,
-                                        "xl" => 8,
+                                        "default" => 12,
+                                        "sm" => 12,
+                                        "md" => 12,
+                                        "lg" => 12,
+                                        "xl" => 12,
                                     ])
+                                    ->suffix('%')
                                     ->mutateDehydratedStateUsing(fn($state) => $state == null ? 0 : $state),
-                                TextInput::make('physical_unit')
-                                    ->label(__('Unit'))
-                                    ->belowLabel(__("Realisasi Fisik"))
-                                    ->required()
-                                    ->columnSpan([
-                                        "default" => 4,
-                                        "sm" => 4,
-                                        "md" => 4,
-                                        "lg" => 4,
-                                        "xl" => 4,
-                                    ]),
                                 TextInput::make('physical_real')
                                     ->label(__('Volume'))
                                     ->belowLabel(__("Realisasi Riil"))
@@ -102,31 +93,22 @@ class ReportForm
                                     ->default(0)
                                     ->afterStateHydrated(fn($state, TextInput $component) => $component->state($state == 0 ? null : $state))
                                     ->placeholder(0)
+                                    ->suffix('%')
                                     ->columnSpan([
-                                        "default" => 8,
-                                        "sm" => 8,
-                                        "md" => 8,
-                                        "lg" => 8,
-                                        "xl" => 8,
-                                    ]),
-                                TextInput::make('physical_real_unit')
-                                    ->label(__('Unit'))
-                                    ->belowLabel(__("Realisasi Riil"))
-                                    ->columnSpan([
-                                        "default" => 4,
-                                        "sm" => 4,
-                                        "md" => 4,
-                                        "lg" => 4,
-                                        "xl" => 4,
+                                        "default" => 12,
+                                        "sm" => 12,
+                                        "md" => 12,
+                                        "lg" => 12,
+                                        "xl" => 12,
                                     ]),
                             ]),
                         Grid::make()
                             ->columnSpan([
                                 "default" => 12,
                                 "sm" => 12,
-                                "md" => 6,
-                                "lg" => 6,
-                                "xl" => 6,
+                                "md" => 8,
+                                "lg" => 8,
+                                "xl" => 8,
                             ])
                             ->schema([
                                 Select::make('physical_category')

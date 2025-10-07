@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Activity;
 use Illuminate\Http\Request;
 use function Spatie\LaravelPdf\Support\pdf;
+use Illuminate\Support\Facades\Gate;
 
 class ActivityController extends Controller
 {
     public function index(Request $request, $record)
     {
-        abort_unless(hexa()->can('activity.export'), 403);
+        // abort_unless(hexa()->can('activity.export'), 403);
 
         return pdf()->view('export.activity', [
             "activity" => Activity::find($record)

@@ -56,6 +56,7 @@ class ReportResource extends Resource
             'report.delete' => __('Deleting data'),
             'report.delete.force' => __('Deleting data (Force)'),
             'report.view' => __('View spesific data'),
+            'report.verify' => __('Verify data'),
             'report.restore' => __('Restore data deleted'),
             'report.audit.index' => __('View audit data'),
             'report.audit.restore' => __('Resotre audit data'),

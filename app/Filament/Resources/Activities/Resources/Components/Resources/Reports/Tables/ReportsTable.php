@@ -53,13 +53,10 @@ class ReportsTable
                         ->alignEnd(),
                 ]),
                 ColumnGroup::make('Realisasi Fisik', [
-                    TextColumn::make('physical_volume')
-                        ->description(fn($record) => ' ' . $record->physical_unit)
-                        // ->description(fn($record) => $record->physical_unit)
+                    TextColumn::make('physical_volume')->suffix('%')
                         ->label('Komponen')
                         ->alignEnd(),
-                    TextColumn::make('physical_real')
-                        ->description(fn($record) => ' ' . $record->physical_real_unit)
+                    TextColumn::make('physical_real')->suffix('%')
                         ->label('Komponen Riil')
                         ->alignEnd(),
                 ]),

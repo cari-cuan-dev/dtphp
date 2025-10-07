@@ -184,12 +184,12 @@
                         </td>
                         <td class="border text-center">
                             @if ($report->physical_volume)
-                                {{ $report->physical_volume }} <br> {{ $report->physical_unit }}
+                                {{ $report->physical_volume }} <br> %
                             @endif
                         </td>
                         <td class="border text-center">
                             @if ($report->physical_real)
-                                {{ $report->physical_real }} <br> {{ $report->physical_real_unit }}
+                                {{ $report->physical_real }} <br> %
                             @endif
                         </td>
                         <td class="border text-center">
